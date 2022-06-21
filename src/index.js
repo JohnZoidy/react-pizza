@@ -4,7 +4,7 @@ import '../assets/app.scss';
 
 const run = () => {
   const app = runApp();
-  ReactDOM.createRoot(document.getElementById('tasklist')).render(app);
+  ReactDOM.createRoot(document.getElementById('content')).render(app);
 };
 
 run();
