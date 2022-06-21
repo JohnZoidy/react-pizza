@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { uniqueId } from 'lodash';
@@ -8,6 +9,7 @@ const Pizza = ({
 }) => {
   const [active, setActive] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
+  const [count, setCount] = React.useState(0);
   const typesNames = ['тонкое', 'традиционное'];
 
   return (
@@ -28,7 +30,7 @@ const Pizza = ({
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">{`от ${price} ₽`}</div>
-        <div className="button button--outline button--add">
+        <div onClick={() => setCount(count + 1)} className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -42,7 +44,7 @@ const Pizza = ({
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          <i>{count}</i>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@
   position: relative;
   &__label {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
 
     svg {
