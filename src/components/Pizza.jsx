@@ -4,7 +4,7 @@ import { uniqueId } from 'lodash';
 import React from 'react';
 
 const Pizza = ({
-  imageUrl, name, types, sizes, price,
+  imageUrl, title, types, sizes, price,
 }) => {
   const [active, setActive] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
@@ -17,7 +17,7 @@ const Pizza = ({
         src={imageUrl}
         alt="Pizza"
       />
-      <h4 className="pizza-block__title">{name}</h4>
+      <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
           {types.map((item, i) => <li key={uniqueId()} className={activeType === i ? 'active' : ''} onClick={() => setActiveType(i)}>{typesNames[item]}</li>)}

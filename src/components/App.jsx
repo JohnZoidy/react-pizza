@@ -4,13 +4,20 @@ import Pizza from './Pizza.jsx';
 import Header from './Header.jsx';
 import Sort from './Sort.jsx';
 import Categories from './Categories.jsx';
-import db from './db.json';
 
 const App = () => {
-  const { pizzas } = db;
+  const [items, setItems] = React.useState('');
+  React.useEffect(() => {
+    fetch('https://626d16545267c14d5677d9c2.mockapi.io/items')
+      .then((res) => res.json())
+      .then((res) => setItems(res));
+  }, []);
 
   return (
+    items
+    && (
     <div className="wrapper">
+      {console.log(items)}
       <Header />
       <div className="content">
         <div className="container">
@@ -20,11 +27,12 @@ const App = () => {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-            {pizzas.map((item) => <Pizza key={item.id} {...item} />)}
+            {items.map((item) => <Pizza key={item.id} {...item} />)}
           </div>
         </div>
       </div>
     </div>
+    )
   );
 };
 
