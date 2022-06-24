@@ -21,7 +21,7 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, [order, category]);
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories category={category} setCategory={setCategory} />
         <Sort order={order} setOrder={setOreder} />
@@ -32,7 +32,7 @@ const Home = () => {
           ? [1, 2, 3, 4, 5, 6].map((item) => <PizzaLoader key={item} />)
           : items.map((item) => <Pizza key={item.id} {...item} />)}
       </div>
-    </>
+    </div>
   );
 };
 
