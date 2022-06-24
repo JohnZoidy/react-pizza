@@ -8,20 +8,23 @@ import Categories from '../../components/Categories.jsx';
 
 const Home = () => {
   const [items, setItems] = React.useState('');
+  const [category, setCategory] = React.useState(0);
+  const [order, setOreder] = React.useState({ name: 'популярности (вверх)', type: 'rating&order=desc' });
   const [isLoading, setIsLoading] = React.useState(true);
+
   React.useEffect(() => {
     setIsLoading(true);
-    fetch('https://626d16545267c14d5677d9c2.mockapi.io/items')
+    fetch(`https://626d16545267c14d5677d9c2.mockapi.io/items?${category === 0 ? '' : `category=${category}&`}sortBy=${order.type}`)
       .then((res) => res.json())
       .then((res) => setItems(res))
       .then(() => setIsLoading(false));
     window.scrollTo(0, 0);
-  }, []);
+  }, [order, category]);
   return (
     <>
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories category={category} setCategory={setCategory} />
+        <Sort order={order} setOrder={setOreder} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

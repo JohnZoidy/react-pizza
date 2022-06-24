@@ -4,12 +4,18 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 
-const Sort = () => {
+const Sort = ({ order, setOrder }) => {
   const [isVisible, setIsVisible] = React.useState(false);
-  const [active, setActive] = React.useState(0);
-  const list = ['популярности', 'цене', 'алфавиту'];
+  const list = [
+    { name: 'популярности (вверх)', type: 'rating&order=desc' },
+    { name: 'популярности (вниз)', type: 'rating&order=asc' },
+    { name: 'цене (самые дорогие)', type: 'price&order=desc' },
+    { name: 'цене (самые дешевые)', type: 'price&order=asc' },
+    { name: 'алфавиту (А-Я)', type: 'title&order=asc' },
+    { name: 'алфавиту (Я-А)', type: 'title&order=desc' },
+  ];
   const pickSort = (i) => {
-    setActive(i);
+    setOrder(i);
     setIsVisible(false);
   };
 
@@ -29,12 +35,12 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisible(!isVisible)}>{list[active]}</span>
+        <span onClick={() => setIsVisible(!isVisible)}>{order.name}</span>
       </div>
       {isVisible && (
       <div className="sort__popup">
         <ul>
-          {list.map((item, i) => <li key={i} className={active === i ? 'active' : ''} onClick={() => pickSort(i)}>{item}</li>)}
+          {list.map((item, i) => <li key={i} className={order.name === item.name ? 'active' : ''} onClick={() => pickSort(item)}>{item.name}</li>)}
         </ul>
       </div>
       )}
