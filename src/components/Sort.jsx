@@ -3,9 +3,13 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSort } from '../slices/filtersSlice.js';
 
-const Sort = ({ order, setOrder }) => {
+const Sort = () => {
   const [isVisible, setIsVisible] = React.useState(false);
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filters.sort);
   const list = [
     { name: 'популярности (вверх)', type: 'rating&order=desc' },
     { name: 'популярности (вниз)', type: 'rating&order=asc' },
@@ -14,8 +18,8 @@ const Sort = ({ order, setOrder }) => {
     { name: 'алфавиту (А-Я)', type: 'title&order=asc' },
     { name: 'алфавиту (Я-А)', type: 'title&order=desc' },
   ];
-  const pickSort = (i) => {
-    setOrder(i);
+  const pickSort = (obj) => {
+    dispatch(setSort(obj));
     setIsVisible(false);
   };
 
@@ -35,12 +39,12 @@ const Sort = ({ order, setOrder }) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisible(!isVisible)}>{order.name}</span>
+        <span onClick={() => setIsVisible(!isVisible)}>{sort.name}</span>
       </div>
       {isVisible && (
       <div className="sort__popup">
         <ul>
-          {list.map((item, i) => <li key={i} className={order.name === item.name ? 'active' : ''} onClick={() => pickSort(item)}>{item.name}</li>)}
+          {list.map((item, i) => <li key={i} className={sort.name === item.name ? 'active' : ''} onClick={() => pickSort(item)}>{item.name}</li>)}
         </ul>
       </div>
       )}

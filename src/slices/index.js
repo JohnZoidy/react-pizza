@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import pizzasReducer from './pizzasSlice.js';
+import filtersReducer from './filtersSlice.js';
 
 export default configureStore({
   reducer: {
-    tasks: pizzasReducer,
+    filters: filtersReducer,
   },
 });
