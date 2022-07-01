@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 import Pizza from '../../components/Pizza.jsx';
@@ -18,10 +19,12 @@ const Home = () => {
 
   React.useEffect(() => {
     setIsLoading(true);
-    fetch(`https://626d16545267c14d5677d9c2.mockapi.io/items?page=${currentPage}&limit=4&${categoryId === 0 ? '' : `category=${categoryId}&`}sortBy=${sort.type}${searchValue === '' ? '' : `&search=${searchValue}`}`)
-      .then((res) => res.json())
-      .then((res) => setItems(res))
-      .then(() => setIsLoading(false));
+    axios
+      .get(`https://626d16545267c14d5677d9c2.mockapi.io/items?page=${currentPage}&limit=4&${categoryId === 0 ? '' : `category=${categoryId}&`}sortBy=${sort.type}${searchValue === '' ? '' : `&search=${searchValue}`}`)
+      .then((res) => {
+        setItems(res.data);
+        setIsLoading(false);
+      });
     window.scrollTo(0, 0);
   }, [categoryId, sort, searchValue, currentPage]);
   return (
