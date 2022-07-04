@@ -32,6 +32,20 @@ const Home = () => {
     }));
   };
 
+  const renderContent = (stat) => {
+    switch (stat) {
+      case 'loading': return [1, 2, 3, 4, 5, 6].map((item) => <PizzaLoader key={item} />);
+      case 'success': return items.map((item) => <Pizza key={item.id} {...item} />);
+      case 'error': return <div>Произошла ошибка во время загрузки данных. Пожалуйста, обратитесь в службу технической поддержки.</div>;
+      default:
+        return (
+          <div>
+            Произошла непредвиденная ошибка. Пожалуйста, обратитесь в службу технической поддержки.
+          </div>
+        );
+    }
+  };
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
     if (isMounted.current) {
@@ -73,9 +87,7 @@ const Home = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {status === 'loading'
-          ? [1, 2, 3, 4, 5, 6].map((item) => <PizzaLoader key={item} />)
-          : items.map((item) => <Pizza key={item.id} {...item} />)}
+        {renderContent(status)}
       </div>
       <Pagination pageCount={pageCount} />
     </div>

@@ -1,16 +1,30 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import { useSelector, useDispatch } from 'react-redux';
 import { uniqueId } from 'lodash';
 import React from 'react';
+import { addItem } from '../slices/cartSlice.js';
+
+const typesNames = ['тонкое', 'традиционное'];
 
 const Pizza = ({
-  imageUrl, title, types, sizes, price,
+  id, imageUrl, title, types, sizes, price,
 }) => {
-  const [active, setActive] = React.useState(0);
+  const dispatch = useDispatch();
+  const [activeSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
-  const [count, setCount] = React.useState(0);
-  const typesNames = ['тонкое', 'традиционное'];
+  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+  const count = cartItem ? cartItem.count : 0;
+  const item = {
+    id,
+    imageUrl,
+    title,
+    type: typesNames[activeType],
+    size: sizes[activeSize],
+    price,
+    count: 0,
+  };
 
   return (
     <div className="pizza-block-wrapper">
@@ -23,15 +37,15 @@ const Pizza = ({
         <h4 className="pizza-block__title">{title}</h4>
         <div className="pizza-block__selector">
           <ul>
-            {types.map((item, i) => <li key={uniqueId()} className={activeType === i ? 'active' : ''} onClick={() => setActiveType(i)}>{typesNames[item]}</li>)}
+            {types.map((obj, i) => <li key={uniqueId()} className={activeType === i ? 'active' : ''} onClick={() => setActiveType(i)}>{typesNames[obj]}</li>)}
           </ul>
           <ul>
-            {sizes.map((item, i) => <li key={uniqueId()} className={active === i ? 'active' : ''} onClick={() => setActive(i)}>{`${item} см.`}</li>)}
+            {sizes.map((obj, i) => <li key={uniqueId()} className={activeSize === i ? 'active' : ''} onClick={() => setActiveSize(i)}>{`${obj} см.`}</li>)}
           </ul>
         </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">{`от ${price} ₽`}</div>
-          <div onClick={() => setCount(count + 1)} className="button button--outline button--add">
+          <div onClick={() => dispatch(addItem(item))} className="button button--outline button--add">
             <svg
               width="12"
               height="12"
@@ -45,7 +59,7 @@ const Pizza = ({
               />
             </svg>
             <span>Добавить</span>
-            <i>{count}</i>
+            {count > 0 && <i>{count}</i>}
           </div>
         </div>
       </div>
