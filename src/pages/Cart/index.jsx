@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CartItem from '../../components/CartItem.jsx';
-import { clearCart } from '../../slices/cartSlice.js';
+import { clearCart, selectCart } from '../../slices/cartSlice.js';
 import CartEmpty from '../CartEmpty.jsx';
 
 const Cart = () => {
@@ -15,7 +15,7 @@ const Cart = () => {
       dispatch(clearCart());
     }
   };
-  const { items, totalPrice, totalCount } = useSelector((state) => state.cart);
+  const { items, totalPrice, totalCount } = useSelector(selectCart);
 
   if (totalCount === 0) {
     return <CartEmpty />;

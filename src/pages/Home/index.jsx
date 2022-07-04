@@ -10,7 +10,6 @@ import PizzaLoader from '../../components/loaders/Pizza.jsx';
 import Sort from '../../components/Sort.jsx';
 import Categories from '../../components/Categories.jsx';
 import Pagination from '../../components/Pagination.jsx';
-import { SearchContext } from '../../contexts/SearchContext.jsx';
 import { setFilters } from '../../slices/filtersSlice.js';
 
 const Home = () => {
@@ -19,7 +18,7 @@ const Home = () => {
   const [, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { sort, categoryId, currentPage } = useSelector((state) => state.filters);
-  const { searchValue } = React.useContext(SearchContext);
+  const searchValue = useSelector((state) => state.filters.searchValue);
   const [isFirstRender, setIsFirstRender] = React.useState(false);
   const isMounted = React.useRef(false);
   const pageCount = 3; // it must be from backend
