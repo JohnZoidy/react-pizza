@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { addItem } from '../slices/cartSlice.js';
@@ -12,6 +13,7 @@ const Pizza = ({
   id, imageUrl, title, types, sizes, price,
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
   const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
@@ -33,6 +35,7 @@ const Pizza = ({
           className="pizza-block__image"
           src={imageUrl}
           alt="Pizza"
+          onClick={() => navigate(`/pizza/${id}`)}
         />
         <h4 className="pizza-block__title">{title}</h4>
         <div className="pizza-block__selector">
