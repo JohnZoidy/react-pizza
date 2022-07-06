@@ -11,6 +11,10 @@ type SortItem = {
   type: string;
 };
 
+type PopupClick = MouseEvent & {
+  path: Node[];
+}
+
 const Sort: React.FC = () => {
   const sortRef = React.useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
@@ -30,8 +34,9 @@ const Sort: React.FC = () => {
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (e: any) => {
-      if (!e.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      const _e = e as PopupClick;
+      if (sortRef.current && !_e.composedPath().includes(sortRef.current)) {
         setIsVisible(false);
       }
     };

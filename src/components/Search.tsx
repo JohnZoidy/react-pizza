@@ -17,7 +17,7 @@ const Search:React.FC = () => {
     debounce((str) => dispatch(setSearchValue(str)), 500),
     [],
   );
-  const onChangeInput = (e: any) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocalSearch(e.target.value);
     updateSearchValue(e.target.value);
   };
