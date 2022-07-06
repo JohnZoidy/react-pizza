@@ -5,9 +5,13 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentPage } from '../slices/filtersSlice.js';
 
-const Pagination = ({ pageCount }) => {
+type PaginationProps = {
+  pageCount:number;
+};
+
+const Pagination:React.FC<PaginationProps> = ({ pageCount }) => {
   const dispatch = useDispatch();
-  const currentPage = useSelector((state) => state.filters.currentPage);
+  const currentPage = useSelector((state: any) => state.filters.currentPage);
   const incHandler = () => {
     if (currentPage !== pageCount) {
       dispatch(setCurrentPage(currentPage + 1));

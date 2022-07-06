@@ -2,13 +2,13 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Header from './Header.jsx';
-import Home from '../pages/Home/index.jsx';
-import NotFound from '../pages/NotFound/index.jsx';
-import Cart from '../pages/Cart/index.jsx';
-import PizzaInfo from './PizzaInfo.jsx';
+import Header from './Header';
+import Home from '../pages/Home/index';
+import NotFound from '../pages/NotFound/index';
+import Cart from '../pages/Cart/index';
+import PizzaInfo from './PizzaInfo';
 
-const App = () => (
+const App: React.FC = () => (
   <div className="wrapper">
     <Header />
     <div className="content">

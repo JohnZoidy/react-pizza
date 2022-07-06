@@ -6,12 +6,17 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../slices/filtersSlice.js';
 
-const Sort = () => {
-  const sortRef = React.useRef();
-  const [isVisible, setIsVisible] = React.useState(false);
+type SortItem = {
+  name: string;
+  type: string;
+};
+
+const Sort: React.FC = () => {
+  const sortRef = React.useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const dispatch = useDispatch();
-  const sort = useSelector((state) => state.filters.sort);
-  const list = [
+  const sort = useSelector((state: any) => state.filters.sort);
+  const list: SortItem[] = [
     { name: 'популярности (вверх)', type: 'rating&order=desc' },
     { name: 'популярности (вниз)', type: 'rating&order=asc' },
     { name: 'цене (самые дорогие)', type: 'price&order=desc' },
@@ -19,13 +24,13 @@ const Sort = () => {
     { name: 'алфавиту (А-Я)', type: 'title&order=asc' },
     { name: 'алфавиту (Я-А)', type: 'title&order=desc' },
   ];
-  const pickSort = (obj) => {
+  const pickSort = (obj: SortItem) => {
     dispatch(setSort(obj));
     setIsVisible(false);
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (e: any) => {
       if (!e.composedPath().includes(sortRef.current)) {
         setIsVisible(false);
       }

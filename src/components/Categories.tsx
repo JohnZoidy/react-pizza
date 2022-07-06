@@ -4,10 +4,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId } from '../slices/filtersSlice.js';
 
-const Categories = () => {
+const Categories: React.FC = () => {
   const dispatch = useDispatch();
-  const category = useSelector((state) => state.filters.categoryId);
-  const setCategory = (id) => {
+  const category = useSelector((state: any) => state.filters.categoryId);
+  const setCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
   return (

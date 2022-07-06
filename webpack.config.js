@@ -12,12 +12,13 @@ const mode = process.env.NODE_ENV || 'development';
 module.exports = {
   mode,
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.tsx', '.ts'],
   },
   output: {
     path: path.join(__dirname, 'dist', 'public'),
     // publicPath: '/assets/',
   },
+  devtool: 'source-map',
   devServer: {
     static: {
       directory: path.join(__dirname, 'dist', 'public'),
@@ -39,6 +40,7 @@ module.exports = {
   ],
   module: {
     rules: [
+      { test: /\.ts(x)?$/, loader: 'ts-loader' },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,

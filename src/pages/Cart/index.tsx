@@ -4,18 +4,34 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import CartItem from '../../components/CartItem.jsx';
+import CartItem from '../../components/CartItem';
 import { clearCart, selectCart } from '../../slices/cartSlice.js';
-import CartEmpty from '../CartEmpty.jsx';
+import CartEmpty from '../CartEmpty';
 
-const Cart = () => {
+type CartItemProps = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  type: string;
+  size: number;
+  price: number;
+  count: number;
+};
+
+type Cart = {
+  items: CartItemProps[];
+  totalPrice: number;
+  totalCount: number;
+}
+
+const Cart:React.FC = () => {
   const dispatch = useDispatch();
   const clearHandler = () => {
     if (window.confirm('Вы уверены?')) {
       dispatch(clearCart());
     }
   };
-  const { items, totalPrice, totalCount } = useSelector(selectCart);
+  const { items, totalPrice, totalCount }: Cart = useSelector(selectCart);
 
   if (totalCount === 0) {
     return <CartEmpty />;

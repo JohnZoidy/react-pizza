@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import style from './NotFound.module.scss';
 
-const NotFound = () => (
+const NotFound: React.FC = () => (
   <div className={style.root}>
     <h1>
       <span>😕</span>

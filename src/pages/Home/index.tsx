@@ -5,25 +5,36 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { fetchPizzas } from '../../slices/pizzasSlice.js';
 
-import Pizza from '../../components/Pizza.jsx';
-import PizzaLoader from '../../components/loaders/Pizza.jsx';
-import Sort from '../../components/Sort.jsx';
-import Categories from '../../components/Categories.jsx';
-import Pagination from '../../components/Pagination.jsx';
+import Pizza from '../../components/Pizza';
+import PizzaLoader from '../../components/loaders/Pizza';
+import Sort from '../../components/Sort';
+import Categories from '../../components/Categories';
+import Pagination from '../../components/Pagination';
 import { setFilters } from '../../slices/filtersSlice.js';
 
-const Home = () => {
+type PizzaBlockProps = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+};
+
+const Home: React.FC = () => {
   const location = useLocation();
-  const { items, status } = useSelector((state) => state.pizzas);
+  const { items, status } = useSelector((state: any) => state.pizzas);
   const [, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
-  const { sort, categoryId, currentPage } = useSelector((state) => state.filters);
-  const searchValue = useSelector((state) => state.filters.searchValue);
-  const [isFirstRender, setIsFirstRender] = React.useState(false);
+  const { sort, categoryId, currentPage } = useSelector((state: any) => state.filters);
+  const searchValue = useSelector((state: any) => state.filters.searchValue);
+  const [isFirstRender, setIsFirstRender] = React.useState<boolean>(false);
   const isMounted = React.useRef(false);
   const pageCount = 3; // it must be from backend
   const getPizzas = async () => {
-    dispatch(fetchPizzas({
+    dispatch(
+      // @ts-ignore
+      fetchPizzas({
       sort,
       categoryId,
       currentPage,
@@ -31,10 +42,10 @@ const Home = () => {
     }));
   };
 
-  const renderContent = (stat) => {
+  const renderContent = (stat: string) => {
     switch (stat) {
       case 'loading': return [1, 2, 3, 4, 5, 6].map((item) => <PizzaLoader key={item} />);
-      case 'success': return items.map((item) => <Pizza key={item.id} {...item} />);
+      case 'success': return items.map((item: PizzaBlockProps) => <Pizza key={item.id} {...item} />);
       case 'error': return <div>Произошла ошибка во время загрузки данных. Пожалуйста, обратитесь в службу технической поддержки.</div>;
       default:
         return (
@@ -72,7 +83,7 @@ const Home = () => {
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    if (!isFirstRender.current) {
+    if (!isFirstRender) {
       getPizzas();
     }
     setIsFirstRender(false);

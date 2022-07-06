@@ -5,18 +5,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { uniqueId } from 'lodash';
 import React from 'react';
-import { addItem } from '../slices/cartSlice.js';
+import { addItem, selectCartItem } from '../slices/cartSlice.js';
 
 const typesNames = ['тонкое', 'традиционное'];
 
-const Pizza = ({
+type PizzaBlockProps = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+};
+
+const Pizza:React.FC<PizzaBlockProps> = ({
   id, imageUrl, title, types, sizes, price,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
-  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+  const cartItem = useSelector(selectCartItem(id));
   const count = cartItem ? cartItem.count : 0;
   const item = {
     id,
