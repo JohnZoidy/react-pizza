@@ -14,7 +14,7 @@ const Search:React.FC = () => {
     inputRef.current?.focus();
   };
   const updateSearchValue = React.useCallback(
-    debounce((str) => dispatch(setSearchValue(str)), 500),
+    debounce((str: string) => dispatch(setSearchValue(str)), 500),
     [],
   );
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {

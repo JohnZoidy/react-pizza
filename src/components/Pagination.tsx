@@ -3,6 +3,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../slices';
 import { setCurrentPage } from '../slices/filtersSlice';
 
 type PaginationProps = {
@@ -11,7 +12,7 @@ type PaginationProps = {
 
 const Pagination:React.FC<PaginationProps> = ({ pageCount }) => {
   const dispatch = useDispatch();
-  const currentPage = useSelector((state: any) => state.filters.currentPage);
+  const currentPage = useSelector((state: RootState) => state.filters.currentPage);
   const incHandler = () => {
     if (currentPage !== pageCount) {
       dispatch(setCurrentPage(currentPage + 1));

@@ -23,13 +23,13 @@ type PizzaBlockProps = {
 };
 
 type SearchParams = {
-  categoryId: 0,
+  categoryId: number;
   sort: {
-    name: 'популярности (вверх)',
-    type: 'rating&order=desc',
+    name: string;
+    type: string;
   },
-  currentPage: 1,
-  searchValue: '',
+  currentPage: number;
+  searchValue: string;
 }
 
 const Home: React.FC = () => {
@@ -37,8 +37,7 @@ const Home: React.FC = () => {
   const { items, status } = useSelector((state: RootState) => state.pizzas);
   const [, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
-  const { sort, categoryId, currentPage } = useSelector((state: RootState) => state.filters);
-  const searchValue = useSelector((state: any) => state.filters.searchValue);
+  const { sort, categoryId, currentPage, searchValue } = useSelector((state: RootState) => state.filters);
   const [isFirstRender, setIsFirstRender] = React.useState<boolean>(false);
   const isMounted = React.useRef(false);
   const pageCount = 3; // it must be from backend
@@ -106,7 +105,7 @@ const Home: React.FC = () => {
     <div className="container">
       <div className="content__top">
         <Categories />
-        <Sort />
+        <Sort {...sort}/>
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

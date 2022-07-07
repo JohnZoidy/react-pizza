@@ -16,11 +16,10 @@ type PopupClick = MouseEvent & {
   path: Node[];
 }
 
-const Sort: React.FC = () => {
+const Sort: React.FC<SortItem> = React.memo(({ name }) => {
   const sortRef = React.useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const dispatch = useDispatch();
-  const sort = useSelector((state: RootState) => state.filters.sort);
   const list: SortItem[] = [
     { name: 'популярности (вверх)', type: 'rating&order=desc' },
     { name: 'популярности (вниз)', type: 'rating&order=asc' },
@@ -62,17 +61,17 @@ const Sort: React.FC = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisible(!isVisible)}>{sort.name}</span>
+        <span onClick={() => setIsVisible(!isVisible)}>{name}</span>
       </div>
       {isVisible && (
       <div className="sort__popup">
         <ul>
-          {list.map((item, i) => <li key={i} className={sort.name === item.name ? 'active' : ''} onClick={() => pickSort(item)}>{item.name}</li>)}
+          {list.map((item, i) => <li key={i} className={name === item.name ? 'active' : ''} onClick={() => pickSort(item)}>{item.name}</li>)}
         </ul>
       </div>
       )}
     </div>
   );
-};
+});
 
 export default Sort;

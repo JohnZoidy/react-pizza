@@ -2,11 +2,12 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../slices';
 import { setCategoryId } from '../slices/filtersSlice';
 
-const Categories: React.FC = () => {
+const Categories: React.FC = React.memo(() => {
   const dispatch = useDispatch();
-  const category = useSelector((state: any) => state.filters.categoryId);
+  const category = useSelector((state: RootState) => state.filters.categoryId);
   const setCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
@@ -22,6 +23,6 @@ const Categories: React.FC = () => {
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;

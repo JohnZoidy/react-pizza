@@ -6,8 +6,18 @@ import { selectCart } from '../slices/cartSlice';
 import logo from '../../assets/img/pizza-logo.svg';
 
 const Header: React.FC = () => {
-  const { totalPrice, totalCount } = useSelector(selectCart);
+  const { items, totalPrice, totalCount } = useSelector(selectCart);
+  const isMounted = React.useRef(false);
   const location = useLocation();
+
+  React.useEffect(() => {
+    if(isMounted.current) {
+      const json = JSON.stringify({ items, totalPrice, totalCount });
+      window.localStorage.setItem('_cart', json);
+    }
+    isMounted.current = true;
+  }, [totalPrice]);
+
   return (
     <div className="header">
       <div className="container">
@@ -20,7 +30,7 @@ const Header: React.FC = () => {
             </div>
           </div>
         </Link>
-        <Search />
+        {location.pathname !== '/cart' && <Search />}
         <div className="header__cart">
           { location.pathname !== '/cart' && (
           <Link to="/cart" className="button button--cart">
