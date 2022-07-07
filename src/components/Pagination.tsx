@@ -3,7 +3,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCurrentPage } from '../slices/filtersSlice.js';
+import { setCurrentPage } from '../slices/filtersSlice';
 
 type PaginationProps = {
   pageCount:number;

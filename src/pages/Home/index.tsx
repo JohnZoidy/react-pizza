@@ -3,14 +3,15 @@ import React from 'react';
 import qs from 'qs';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { fetchPizzas } from '../../slices/pizzasSlice.js';
+import { fetchPizzas } from '../../slices/pizzasSlice';
 
 import Pizza from '../../components/Pizza';
 import PizzaLoader from '../../components/loaders/Pizza';
 import Sort from '../../components/Sort';
 import Categories from '../../components/Categories';
 import Pagination from '../../components/Pagination';
-import { setFilters } from '../../slices/filtersSlice.js';
+import { setFilters } from '../../slices/filtersSlice';
+import { RootState } from '../../slices/index';
 
 type PizzaBlockProps = {
   id: number;
@@ -21,12 +22,22 @@ type PizzaBlockProps = {
   price: number;
 };
 
+type SearchParams = {
+  categoryId: 0,
+  sort: {
+    name: 'популярности (вверх)',
+    type: 'rating&order=desc',
+  },
+  currentPage: 1,
+  searchValue: '',
+}
+
 const Home: React.FC = () => {
   const location = useLocation();
-  const { items, status } = useSelector((state: any) => state.pizzas);
+  const { items, status } = useSelector((state: RootState) => state.pizzas);
   const [, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
-  const { sort, categoryId, currentPage } = useSelector((state: any) => state.filters);
+  const { sort, categoryId, currentPage } = useSelector((state: RootState) => state.filters);
   const searchValue = useSelector((state: any) => state.filters.searchValue);
   const [isFirstRender, setIsFirstRender] = React.useState<boolean>(false);
   const isMounted = React.useRef(false);
@@ -72,10 +83,12 @@ const Home: React.FC = () => {
 
   React.useEffect(() => {
     if (location.search) {
-      const params = qs.parse(location.search.substring(1));
+      const params = qs.parse(location.search.substring(1)) as unknown as SearchParams;
       dispatch(setFilters({
-        sort,
-        ...params,
+        categoryId: Number(params.categoryId),
+        sort: params.sort || sort,
+        currentPage: Number(params.currentPage),
+        searchValue: params.searchValue,
       }));
       setIsFirstRender(true);
     }

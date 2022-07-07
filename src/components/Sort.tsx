@@ -4,7 +4,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSort } from '../slices/filtersSlice.js';
+import { RootState } from '../slices';
+import { setSort } from '../slices/filtersSlice';
 
 type SortItem = {
   name: string;
@@ -19,7 +20,7 @@ const Sort: React.FC = () => {
   const sortRef = React.useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const dispatch = useDispatch();
-  const sort = useSelector((state: any) => state.filters.sort);
+  const sort = useSelector((state: RootState) => state.filters.sort);
   const list: SortItem[] = [
     { name: 'популярности (вверх)', type: 'rating&order=desc' },
     { name: 'популярности (вниз)', type: 'rating&order=asc' },

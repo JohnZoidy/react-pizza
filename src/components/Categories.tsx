@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId } from '../slices/filtersSlice.js';
+import { setCategoryId } from '../slices/filtersSlice';
 
 const Categories: React.FC = () => {
   const dispatch = useDispatch();

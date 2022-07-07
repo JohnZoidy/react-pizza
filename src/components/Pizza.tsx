@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { uniqueId } from 'lodash';
 import React from 'react';
-import { addItem, selectCartItem } from '../slices/cartSlice.js';
+import { addItem, selectCartItem } from '../slices/cartSlice';
 
 const typesNames = ['тонкое', 'традиционное'];
 
