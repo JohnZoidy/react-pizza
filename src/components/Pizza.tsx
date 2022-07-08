@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { uniqueId } from 'lodash';
+import uniqueId  from 'lodash.uniqueid';
 import React from 'react';
 import { addItem, selectCartItem } from '../slices/cartSlice';
 

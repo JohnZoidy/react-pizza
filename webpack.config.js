@@ -1,13 +1,12 @@
-// @ts-check
-
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const mode = process.env.NODE_ENV || 'development';
-// const mode = 'production';
+// const mode = process.env.NODE_ENV || 'development';
+const mode = 'production';
 
 module.exports = {
   mode,
@@ -17,6 +16,9 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist', 'public'),
     // publicPath: '/assets/',
+  },
+  optimization: {
+    minimizer: [new TerserPlugin()],
   },
   devtool: 'source-map',
   devServer: {
@@ -31,6 +33,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
+    // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       template: 'assets/index.html',
     }),
@@ -38,6 +41,9 @@ module.exports = {
       'process.env': JSON.stringify(process.env),
     }),
   ],
+  performance: {
+    hints: false,
+  },
   module: {
     rules: [
       { test: /\.ts(x)?$/, loader: 'ts-loader' },
