@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import Header from './Header';
 import Home from '../pages/Home/index';
+import routes from '../routes';
 
 const App: React.FC = () => {
 
@@ -16,10 +17,10 @@ const App: React.FC = () => {
     <Header />
     <div className="content">
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Suspense fallback={<div>Идет загрузка...</div>}><Cart /></Suspense>} />
-        <Route path="/pizza/:id" element={<Suspense fallback={<div>Идет загрузка...</div>}><PizzaInfo /></Suspense>} />
-        <Route path="*" element={<Suspense fallback={<div>Идет загрузка...</div>}><NotFound /></Suspense>} />
+        <Route path={routes.mainPage()} element={<Home />} />
+        <Route path={routes.cartPage()} element={<Suspense fallback={<div>Идет загрузка...</div>}><Cart /></Suspense>} />
+        <Route path={routes.infoPage()} element={<Suspense fallback={<div>Идет загрузка...</div>}><PizzaInfo /></Suspense>} />
+        <Route path={routes.notFoundPage()} element={<Suspense fallback={<div>Идет загрузка...</div>}><NotFound /></Suspense>} />
       </Routes>
     </div>
   </div>

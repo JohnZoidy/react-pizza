@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Search from './Search';
 import { selectCart } from '../slices/cartSlice';
 import logo from '../../assets/img/pizza-logo.svg';
+import routes from '../routes';
 
 const Header: React.FC = () => {
   const { items, totalPrice, totalCount } = useSelector(selectCart);
@@ -21,7 +22,7 @@ const Header: React.FC = () => {
   return (
     <div className="header">
       <div className="container">
-        <Link to="/">
+        <Link to={routes.mainPage()}>
           <div className="header__logo">
             <img width="38" src={logo} alt="Pizza logo" />
             <div>
@@ -33,7 +34,7 @@ const Header: React.FC = () => {
         {location.pathname !== '/cart' && <Search />}
         <div className="header__cart">
           { location.pathname !== '/cart' && (
-          <Link to="/cart" className="button button--cart">
+          <Link to={routes.cartPage()} className="button button--cart">
             <span>
               {totalPrice}
               {' '}

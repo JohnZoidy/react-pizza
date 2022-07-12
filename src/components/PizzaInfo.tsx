@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import routes from '../routes';
 
 const PizzaInfo: React.FC = () => {
   const [pizza, setPizza] = React.useState<{
@@ -39,7 +40,7 @@ const PizzaInfo: React.FC = () => {
         {' '}
         ₽
       </h4>
-      <Link to="/">
+      <Link to={routes.mainPage()}>
         <button type="button" className="button button--outline button--add">
           <span>Назад</span>
         </button>
