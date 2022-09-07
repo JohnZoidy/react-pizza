@@ -33,7 +33,7 @@ const PizzaInfo: React.FC = () => {
 
   return (
     <div className="container">
-      <img src={pizza.imageUrl} alt={pizza.title} />
+      <img className="info" src={pizza.imageUrl} alt={pizza.title} />
       <h2>{pizza.title}</h2>
       <h4>
         {pizza.price}
